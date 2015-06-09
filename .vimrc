@@ -1,13 +1,18 @@
 " An example for a vimrc file.
 "
-" Maintainer:	Bram Moolenaar <Bram@vim.org>
-" Last change:	2008 Dec 17
+" Maintainer:   Bram Moolenaar <Bram@vim.org>
+" Last change:  2008 Dec 17
 "
 " To use it, copy it to
 "     for Unix and OS/2:  ~/.vimrc
-"	      for Amiga:  s:.vimrc
+"         for Amiga:  s:.vimrc
 "  for MS-DOS and Win32:  $VIM\_vimrc
-"	    for OpenVMS:  sys$login:.vimrc
+"       for OpenVMS:  sys$login:.vimrc
+
+call pathogen#infect()
+call pathogen#helptags()
+set noshowmode
+set t_Co=256
 
 " When started as "evim", evim.vim will already have done these settings.
 if v:progname =~? "evim"
@@ -22,14 +27,14 @@ set nocompatible
 set backspace=indent,eol,start
 
 if has("vms")
-  set nobackup		" do not keep a backup file, use versions instead
+  set nobackup      " do not keep a backup file, use versions instead
 else
-  set backup		" keep a backup file
+  set backup        " keep a backup file
 endif
-set history=50		" keep 50 lines of command line history
-set ruler		" show the cursor position all the time
-set showcmd		" display incomplete commands
-set incsearch		" do incremental searching
+set history=50      " keep 50 lines of command line history
+set ruler       " show the cursor position all the time
+set showcmd     " display incomplete commands
+set incsearch       " do incremental searching
 
 " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
 " let &guioptions = substitute(&guioptions, "t", "", "g")
@@ -83,7 +88,7 @@ if has("autocmd")
 
 else
 
-  set autoindent		" always set autoindenting on
+  set autoindent        " always set autoindenting on
 
 endif " has("autocmd")
 
@@ -95,5 +100,13 @@ set backupskip+=/var/spool/cron/*
 " Only define it when not defined already.
 if !exists(":DiffOrig")
   command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
-		  \ | wincmd p | diffthis
+          \ | wincmd p | diffthis
 endif
+
+autocmd StdinReadPre * let s:std_in=1
+"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+set laststatus=2
+let g:bufferline_echo = 0
+set timeoutlen=50
+let g:spotify_country_code = 'CA'
